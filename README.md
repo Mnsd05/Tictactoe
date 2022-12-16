@@ -1,3 +1,3 @@
-#Tictactoe
+# Tictactoe
 
 This is my first project on github
