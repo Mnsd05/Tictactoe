@@ -9,17 +9,16 @@ import java.awt.event.*;
 import java.awt.Image;
 public class Tictactoe implements ActionListener {
   JFrame frame1 = new JFrame(); 
-  JLayeredPane layeredPane = new JLayeredPane(); 
-  JPanel board = new JPanel(); 
-  Label finalLabel = new Label();
+  JLayeredPane layeredPane = new JLayeredPane();     // to contain overlapping components
+  JPanel board = new JPanel();                       // to contain 9 cells
+  Label finalLabel = new Label();                    // Display the result
   MyButton[] buttonsList = new MyButton[9];
     Tictactoe ()  {            
       frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.setSize(new Dimension(500, 500));
-        frame1.setResizable(false);
-        frame1.setVisible(true);
-          // to contain overlapping components
-          //                   to contain 9 cells
+      frame1.setSize(new Dimension(500, 500));
+      frame1.setResizable(false);
+      frame1.setVisible(true);
+  
       board.setBounds(0,0,480,460);
       board.setLayout(new GridLayout(3,3,10,10));
       
@@ -43,10 +42,9 @@ public class Tictactoe implements ActionListener {
       else first_label.setText("Player 2 moves first");
       layeredPane.add(first_label, new Integer(200));
       try {
-        Thread.sleep(5000);
+          Thread.sleep(5000);
       } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+          e.printStackTrace();
       }
       first_label.setVisible(false);
 
@@ -56,34 +54,33 @@ public class Tictactoe implements ActionListener {
   @Override
 	public void actionPerformed(ActionEvent e) {
     for (int i = 0; i < 9; ++i) {
-      	if(e.getSource()==buttonsList[i] && !buttonsList[i].ticked && !buttonsList[i].cantClick) {
-          buttonsList[i].numClicked += 1;
-            // int cell = (this.getBounds().x/163) + ((this.getBounds().y -1) / 156) * 3;
-            if (buttonsList[i].firstPlayer) {
+      	if(e.getSource()==buttonsList[i] && !buttonsList[i].ticked && MyButton.cantClick) {
+            MyButton.numClicked += 1;
+            if (MyButton.firstPlayer) {
                 ImageIcon tick = new ImageIcon(new ImageIcon("Tictactoe/first/tick.png").getImage().
                 getScaledInstance(50, 50, Image.SCALE_DEFAULT));
                 buttonsList[i].setIcon(tick);
-                buttonsList[i].checkBoard.check.set(i,1);
+                MyButton.checkBoard.check.set(i,1);
             } else {
                 ImageIcon cross = new ImageIcon(new ImageIcon("Tictactoe/first/cross.png").getImage().
                 getScaledInstance(50, 50, Image.SCALE_DEFAULT));
                 buttonsList[i].setIcon(cross);
-                buttonsList[i].checkBoard.check.set(i,2);
+                MyButton.checkBoard.check.set(i,2);
             }
-            buttonsList[i].firstPlayer ^= true;
+            MyButton.firstPlayer ^= true;
             buttonsList[i].ticked = true;
-            if (buttonsList[i].checkBoard.checkWin()) {
-              buttonsList[i].cantClick = true;
-              if (!MyButton.firstPlayer) {
+            if (MyButton.checkBoard.checkWin()) {
+                MyButton.cantClick = true;
+                if (!MyButton.firstPlayer) {
                     finalLabel.setText("Player 1 wins");
                     layeredPane.add(finalLabel, new Integer(100));
-                  }else if (MyButton.firstPlayer) {
+                }else if (MyButton.firstPlayer) {
                     finalLabel.setText("Player 2 wins");
                     layeredPane.add(finalLabel, new Integer(100));
                   }
-            } if (MyButton.numClicked == 9 && !MyButton.cantClick) {
-              finalLabel.setText("Draw");
-              layeredPane.add(finalLabel, new Integer(100));
+            }if (MyButton.numClicked == 9 && !MyButton.cantClick) {
+                finalLabel.setText("Draw");
+                layeredPane.add(finalLabel, new Integer(100));
             }
         }
     }

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
-
+/* Return true if the winner is found
+ * Return false if not found yet
+ */
 public class CheckBoard {
     ArrayList<Integer> check = new ArrayList<Integer>();
     CheckBoard () {
