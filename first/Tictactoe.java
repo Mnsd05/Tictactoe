@@ -60,12 +60,12 @@ public class Tictactoe implements ActionListener {
           buttonsList[i].numClicked += 1;
             // int cell = (this.getBounds().x/163) + ((this.getBounds().y -1) / 156) * 3;
             if (buttonsList[i].firstPlayer) {
-                ImageIcon tick = new ImageIcon(new ImageIcon("tick.png").getImage().
+                ImageIcon tick = new ImageIcon(new ImageIcon("Tictactoe/first/tick.png").getImage().
                 getScaledInstance(50, 50, Image.SCALE_DEFAULT));
                 buttonsList[i].setIcon(tick);
                 buttonsList[i].checkBoard.check.set(i,1);
             } else {
-                ImageIcon cross = new ImageIcon(new ImageIcon("cross.png").getImage().
+                ImageIcon cross = new ImageIcon(new ImageIcon("Tictactoe/first/cross.png").getImage().
                 getScaledInstance(50, 50, Image.SCALE_DEFAULT));
                 buttonsList[i].setIcon(cross);
                 buttonsList[i].checkBoard.check.set(i,2);
