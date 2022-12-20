@@ -5,11 +5,12 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import java.awt.event.*;
 import java.awt.Image;
-public class Tictactoe implements ActionListener {
-  JLayeredPane layeredPane = new JLayeredPane();        // to contain overlapping components
+public class Tictactoe extends JLayeredPane implements ActionListener {
   JPanel board = new JPanel();                          // to contain 9 cells
   Label finalLabel = new Label();
+  Label first_label = new Label();                    // set label displaying the player to start first
   MyButton[] buttonsList = new MyButton[9];
+  static ResetButton resetButton = new ResetButton();
     Tictactoe ()  {            
     
       board.setBounds(0,0,480,460);
@@ -23,12 +24,14 @@ public class Tictactoe implements ActionListener {
           board.add(buttonsList[i]);
           if (!tickFirst) MyButton.firstPlayer = false;
       }
-      layeredPane.add (board,new Integer(0));  
-
+      this.add (board,new Integer(0));  
+      
       MyButton.cantClick = true;                          // prevent clicking at the start of the game
 
-      MyButton.cantClick = false;                         
-       
+      if (MyButton.firstPlayer) first_label.setText("Player 1 moves first");
+      else first_label.setText("Player 2 moves first");
+      this.add(first_label, new Integer(200));                        
+
   }
   @Override
 	public void actionPerformed(ActionEvent e) {
@@ -51,19 +54,17 @@ public class Tictactoe implements ActionListener {
             if (MyButton.checkBoard.checkWin()) {
               MyButton.cantClick = true;
               if (!MyButton.firstPlayer) {
-                    finalLabel.setText("Player 1 wins");
-                    layeredPane.add(finalLabel, new Integer(100));
+                    resetButton.setText("<html>Player 1 wins<br />Click to reset</html>");
+                    this.add(resetButton,new Integer(100));
                   }else if (MyButton.firstPlayer) {
-                    finalLabel.setText("Player 2 wins");
-                    layeredPane.add(finalLabel, new Integer(100));
+                    resetButton.setText("<html>Player 2 wins<br />Click to reset</html>");
+                    this.add(resetButton,new Integer(100));
                   }
             } if (MyButton.numClicked == 9 && !MyButton.cantClick) {
-              finalLabel.setText("Draw");
-              layeredPane.add(finalLabel, new Integer(100));
+                resetButton.setText("<html>Draw<br />Click to reset</html>");
+                this.add(resetButton,new Integer(100));
             }
         }
     }
     }
 }
-
-
